@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+</head>
+<body>
+    <div class="login_form_container">
+        <div class="login_form">
+            <h2>Login</h2>
+            <div class="input_group">
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="Username" class="input_text" id="username" autocomplete="off">
+            </div>
+            <div class="input_group">
+                <i class="fa fa-unlock-alt"></i>
+                <input type="password" placeholder="Password" class="input_text" id="password" autocomplete="off">
+            </div>
+            <div class="button_group" id="login_button">
+                <a id="loginLink">Submit</a>
+            </div>
+            <div class="fotter">
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript code within <script> tags -->
+    <script>
+        // JavaScript code for login
+        document.getElementById('loginLink').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Retrieve data from localStorage
+            const storedData = localStorage.getItem('signupData');
+            const signupData = storedData ? JSON.parse(storedData) : [];
+
+            // Check if there is a user with matching username and password
+            const user = signupData.find(user => user.username === username && user.password === password);
+            
+            if (user) {
+                // Redirect to display_data.html if the user exists
+                window.location.href = 'display_data.html';
+            } else {
+                // Display an error message if the user doesn't exist or credentials are incorrect
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

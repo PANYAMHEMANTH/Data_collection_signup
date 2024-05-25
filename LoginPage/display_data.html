@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Signup Data</title>
+</head>
+<body>
+    <h2>Registered Users</h2>
+    <ul id="userList"></ul>
+
+    <button id="clearButton">Clear Collected Data</button>
+
+    <script>
+        const userList = document.getElementById('userList');
+        const storedData = localStorage.getItem('signupData');
+        const signupData = storedData ? JSON.parse(storedData) : [];
+
+        signupData.forEach(user => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Username: ${user.username}, Email: ${user.email}, Password: ${user.password}`;
+            userList.appendChild(listItem);
+        });
+
+        const clearButton = document.getElementById('clearButton');
+        clearButton.addEventListener('click', function() {
+            localStorage.removeItem('signupData');
+            alert('Collected data has been cleared.');
+            location.reload(); // Refresh the page to reflect changes
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Signup Form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="login_form_container">
+        <div class="login_form">
+            <h2>Sign Up</h2>
+            <div class="input_group">
+                <i class="fa fa-user"></i>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    class="input_text"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="input_group">
+                <i class="fa fa-envelope"></i>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    class="input_text"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="input_group">
+                <i class="fa fa-lock"></i>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    class="input_text"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="input_group">
+                <i class="fa fa-lock"></i>
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    class="input_text"
+                    autocomplete="off"
+                />
+            </div>
+            <div class="button_group" id="signup_button">
+                <a href="#" class="glowIcon" id="signupLink">Sign Up</a>
+            </div>
+            <div>
+                <p>Already have an account? <a href="login.html">Log in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#signupLink').click(function(e) {
+                e.preventDefault();
+
+                const username = $('.input_text:eq(0)').val();
+                const email = $('.input_text:eq(1)').val();
+                const password = $('.input_text:eq(2)').val();
+
+                const storedData = localStorage.getItem('signupData');
+                const signupData = storedData ? JSON.parse(storedData) : [];
+
+                // Check if the email is already used
+                const isEmailUsed = signupData.some(user => user.email === email);
+                if (isEmailUsed) {
+                    alert('Email is already used. Please use a different email.');
+                    return;
+                }
+
+                // If email is not used, add the new user
+                const userData = { username, email, password };
+                signupData.push(userData);
+                localStorage.setItem('signupData', JSON.stringify(signupData));
+
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>
